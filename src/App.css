@@ -3,6 +3,10 @@
 .shoe-list {
   list-style-type: none;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: center;
 }
 
 .shoe-item {
@@ -11,23 +15,45 @@
   padding: 10px;
   border-radius: 5px;
   text-align: left;
+  transition: background-color 0.5s, transform 0.5s;
+  position: relative;
+  overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.shoe-item:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.05);
 }
 
 .shoe-item img {
-  width: 200px; /* Set a fixed width */
-  height: 200px; /* Set a fixed height */
+  width: 100%; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio */
   object-fit: cover; /* Ensure the image covers the area without distortion */
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 10px auto; /* Center the image and add bottom margin */
 }
 
-.shoe-item h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+.shoe-item h2,
+.shoe-item p:not(.price),
+.shoe-item button {
+  max-height: 0; /* Hide these elements initially */
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out; /* Smooth transition */
 }
 
-.shoe-item p {
-  margin: 5px 0;
+.shoe-item:hover h2,
+.shoe-item:hover p:not(.price),
+.shoe-item:hover button {
+  max-height: 100px; /* Adjust as needed */
+  opacity: 1;
+}
+
+.shoe-item .price {
+  display: block; /* Always show the price */
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 .shoe-item input {
@@ -42,4 +68,29 @@
   margin-top: 10px;
   padding: 5px 10px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.shoe-item button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1200px) {
+  .shoe-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .shoe-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .shoe-list {
+    grid-template-columns: 1fr;
+  }
 }
