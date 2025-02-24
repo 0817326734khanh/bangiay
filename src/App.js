@@ -62,18 +62,12 @@ export default function App() {
   return (
     <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif', padding: '20px' }}>
       <h1 style={{ color: '#333' }}>Shoe Store</h1>
-      <ul style={{ 
-        listStyle: 'none', 
-        padding: 0, 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(5, 1fr)', 
-        gap: '20px', 
-        justifyContent: 'center' 
-      }}>
+      <ul className="shoe-list">
         {shoeList.map(shoe => {
           if (editingId === shoe.id) {
             return (
-              <li key={shoe.id} style={{ padding: '15px', border: '1px solid #ddd', borderRadius: '10px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
+              <li key={shoe.id} className="shoe-item" style={{ padding: '15px', border: '1px solid #ddd', borderRadius: '10px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
+                <img src={editedImage} alt="Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px', marginBottom: '10px' }} />
                 <input type="text" value={editedName} onChange={(e) => setEditedName(e.target.value)} style={{ margin: '5px', padding: '5px', width: '100%' }} />
                 <input type="text" value={editedPrice} onChange={(e) => setEditedPrice(e.target.value)} style={{ margin: '5px', padding: '5px', width: '100%' }} />
                 <input type="text" value={editedColor} onChange={(e) => setEditedColor(e.target.value)} style={{ margin: '5px', padding: '5px', width: '100%' }} />
@@ -81,20 +75,19 @@ export default function App() {
                 <input type="text" value={editedStock} onChange={(e) => setEditedStock(e.target.value)} style={{ margin: '5px', padding: '5px', width: '100%' }} />
                 <input type="text" value={editedType} onChange={(e) => setEditedType(e.target.value)} style={{ margin: '5px', padding: '5px', width: '100%' }} />
                 <input type="file" onChange={handleImageChange} style={{ margin: '5px', padding: '5px', width: '100%' }} />
-                {editedImage && <img src={editedImage} alt="Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px', marginBottom: '10px' }} />}
                 <button onClick={() => handleSaveClick(shoe.id)} style={{ backgroundColor: '#28a745', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '3px', marginTop: '10px' }}>Save</button>
               </li>
             );
           } else {
             return (
-              <li key={shoe.id} style={{ padding: '15px', border: '1px solid #ddd', borderRadius: '10px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
+              <li key={shoe.id} className="shoe-item" style={{ padding: '15px', border: '1px solid #ddd', borderRadius: '10px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
+                <img src={shoe.image} alt={shoe.name} style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px', marginBottom: '10px' }} />
+                <p className="price">Price: {shoe.price}</p>
                 <h2 style={{ color: '#007bff', fontSize: '18px' }}>{shoe.name}</h2>
                 <p>Type: {shoe.type}</p>
                 <p>Sizes: {shoe.sizes.join(', ')}</p>
                 <p>Color: {shoe.color}</p>
-                <p>Price: {shoe.price}</p>
                 <p>Stock: {shoe.stock}</p>
-                <img src={shoe.image} alt={shoe.name} style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px', marginBottom: '10px' }} />
                 <button onClick={() => handleEditClick(shoe)} style={{ backgroundColor: '#ffc107', color: 'black', padding: '5px 10px', border: 'none', borderRadius: '3px' }}>Edit</button>
               </li>
             );
